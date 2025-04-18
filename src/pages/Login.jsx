@@ -24,8 +24,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { setUserInfo } = useUser();
-  // console.log(email)
-  // console.log(password)
+
 
   const getUserInfo = async ({ email, password }) => {
     const response = await axios.post('http://localhost:8080/api/login', {
@@ -63,16 +62,12 @@ const Login = () => {
       <form className='flex grow items-center' onSubmit={handleSubmit}>
         <Card className='w-10/12 sm:w-md mx-auto'>
           <CardHeader>
-            <CardTitle>Welcome Back!</CardTitle>
+            <CardTitle>Welcome!</CardTitle>
             <CardDescription>Sign in to your account</CardDescription>
           </CardHeader>
           <CardContent className='space-y-3'>
             <Input placeholder='Email' onChange={(e) => setEmail(e.target.value)} />
             <Input placeholder='Password' type='password' onChange={(e) => setPassword(e.target.value)} />
-            <div className='flex space-x-2'>
-              <Checkbox id='save-pass' />
-              <Label htmlFor='save-pass' className='font-normal'>Save password</Label>
-            </div>
           </CardContent>
           <CardFooter>
             <Button className='w-full hover:cursor-pointer'>Sign In</Button>

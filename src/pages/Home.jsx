@@ -20,7 +20,7 @@ const Home = () => {
         return response.data
     }
 
-    const { data } = useQuery({
+    const { data, error, isPending } = useQuery({
         queryKey: ['productsList'],
         queryFn: fetchProducts,
     });
@@ -28,7 +28,8 @@ const Home = () => {
     return (
         <main className='flex flex-col w-screen min-h-screen'>
             <Header />
-            <div className='flex grow items-center'>
+            <h2 className="mx-auto py-10 ">Products Data</h2>
+            <div className='flex items-center'>
                 <Table className='border-2 w-8/12 mx-auto'>
                     <TableHeader>
                         <TableRow>
@@ -50,7 +51,7 @@ const Home = () => {
                     </TableBody>
                 </Table>
             </div>
-                        {/* <Footer /> */}
+            {/* <Footer /> */}
         </main>
     )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from "@/components/ui/theme-toggle"
-import { useNavigate, useLocation } from "react-router-dom"
+import { useNavigate, useLocation, Link } from "react-router-dom"
 import {
     Sheet,
     SheetContent,
@@ -19,6 +19,7 @@ const Header = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { userInfo, setUserInfo } = useUser();
+    const showSales = ['9284', '4826'];
 
     const handleLogout = () => {
         setUserInfo(null);
@@ -27,12 +28,29 @@ const Header = () => {
 
     return (
         <header className='flex p-3 items-center shadow shadow-gray-400'>
-            <h3 className="pl-3 text-2xl font-semibold tracking-tight">
+            <Link to={"/"} className="pl-3 text-2xl font-semibold tracking-tight">
                 {!userInfo ? 'Hey There!' : `Hey ${userInfo?.first_name}!`}
-            </h3>
+            </Link>
             <div className='ml-auto flex items-center space-x-2'>
                 <ThemeToggle />
-                {userInfo?.role === '4826' && location.pathname !== "/admin" && (
+                {
+                    showSales.includes(userInfo?.role) && (
+                    location.pathname == "/" ?
+                    <Button className='hover:cursor-pointer' onClick={() => navigate("/sales")}>
+                        Sales Page
+                    </Button> :
+                    <Button className='hover:cursor-pointer' onClick={() => navigate("/")}>
+                    Products Page
+                    </Button>
+                )}
+                {
+                    showSales.includes(userInfo?.role) && (
+                    <Button className='hover:cursor-pointer' onClick={() => navigate("/users")}>
+                        User Page
+                    </Button> 
+                )}
+                {
+                    userInfo?.role === '4826' && location.pathname !== "/admin" && (
                     <Button className='hover:cursor-pointer' onClick={() => navigate("/admin")}>
                         Edit Roles
                     </Button>
